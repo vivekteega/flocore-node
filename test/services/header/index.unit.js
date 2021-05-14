@@ -16,8 +16,8 @@ describe('Header Service', function() {
 
   var headerService;
   var sandbox;
-  var prevHeader = new Block(new Buffer('01000000b25c0849b469983b4a5b90a49e4c0e4ba3853122ed141b5bd92d14000000000021a8aaa4995e4ce3b885677730b153741feda66a08492287a45c6a131671ba5a72ff504c5a0c011c456e4d060201000000010000000000000000000000000000000000000000000000000000000000000000ffffffff08045a0c011c028208ffffffff0100f2052a010000004341041994d910507ec4b2135dd32a4723caf00f8567f356ffbd5e703786d856b49a89d6597c280d8981238fbde81fa3767161bc3e994c17be41b42235a61c24c73459ac0000000001000000013b517d1aebd89b4034e0cf9b25ecbe82ef162ce71284e92a1f1adebf44ea1409000000008b483045022100c7ebc62e89740ddab42a64435c996e1c91a063f9f2cc004b4f023f7a1be5234402207608837faebec16049461d4ef7de807ce217040fd2a823a29da16ec07e463d440141048f108c0da4b5be3308e2e0b521d02d341de85b36a29285b47f00bc33e57a89cf4b6e76aa4a48ddc9a5e882620779e0f1b19dc98d478052fbd544167c745be1d8ffffffff010026e85a050000001976a914f760ef90462b0a4bde26d597c1f29324f5cd0fc488ac00000000', 'hex')).header.toObject();
-  var preObjectHeader = new Block(new Buffer('010000006a39821735ec18a366d95b391a7ff10dee181a198f1789b0550e0d00000000002b0c80fa52b669022c344c3e09e6bb9698ab90707bb4bb412af3fbf31cfd2163a601514c5a0c011c572aef0f0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff08045a0c011c022003ffffffff0100f2052a01000000434104c5b694d72e601091fd733c6b18b94795c13e2db6b1474747e7be914b407854cad37cee3058f85373b9f9dbb0014e541c45851d5f85e83a1fd7c45e54423718f3ac00000000', 'hex')).header;
+  var prevHeader = new Block(Buffer.from('01000000b25c0849b469983b4a5b90a49e4c0e4ba3853122ed141b5bd92d14000000000021a8aaa4995e4ce3b885677730b153741feda66a08492287a45c6a131671ba5a72ff504c5a0c011c456e4d060201000000010000000000000000000000000000000000000000000000000000000000000000ffffffff08045a0c011c028208ffffffff0100f2052a010000004341041994d910507ec4b2135dd32a4723caf00f8567f356ffbd5e703786d856b49a89d6597c280d8981238fbde81fa3767161bc3e994c17be41b42235a61c24c73459ac0000000001000000013b517d1aebd89b4034e0cf9b25ecbe82ef162ce71284e92a1f1adebf44ea1409000000008b483045022100c7ebc62e89740ddab42a64435c996e1c91a063f9f2cc004b4f023f7a1be5234402207608837faebec16049461d4ef7de807ce217040fd2a823a29da16ec07e463d440141048f108c0da4b5be3308e2e0b521d02d341de85b36a29285b47f00bc33e57a89cf4b6e76aa4a48ddc9a5e882620779e0f1b19dc98d478052fbd544167c745be1d8ffffffff010026e85a050000001976a914f760ef90462b0a4bde26d597c1f29324f5cd0fc488ac00000000', 'hex')).header.toObject();
+  var preObjectHeader = new Block(Buffer.from('010000006a39821735ec18a366d95b391a7ff10dee181a198f1789b0550e0d00000000002b0c80fa52b669022c344c3e09e6bb9698ab90707bb4bb412af3fbf31cfd2163a601514c5a0c011c572aef0f0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff08045a0c011c022003ffffffff0100f2052a01000000434104c5b694d72e601091fd733c6b18b94795c13e2db6b1474747e7be914b407854cad37cee3058f85373b9f9dbb0014e541c45851d5f85e83a1fd7c45e54423718f3ac00000000', 'hex')).header;
   var header = preObjectHeader.toObject();
   beforeEach(function() {
     sandbox = sinon.sandbox.create();
@@ -26,7 +26,7 @@ describe('Header Service', function() {
         services: []
       }
     });
-    headerService._encoding = new Encoding(new Buffer('0000', 'hex'));
+    headerService._encoding = new Encoding(Buffer.from('0000', 'hex'));
   });
 
   afterEach(function() {
@@ -40,7 +40,7 @@ describe('Header Service', function() {
 
       var getServiceTip = sandbox.stub().callsArgWith(1, null, { height: 123, hash: 'a' });
       var setListeners = sandbox.stub(headerService, '_setListeners');
-      var getPrefix = sandbox.stub().callsArgWith(1, null, new Buffer('ffee', 'hex'));
+      var getPrefix = sandbox.stub().callsArgWith(1, null, Buffer.from('ffee', 'hex'));
       var adjustHeadersForCheckPointTip = sandbox.stub(headerService, '_adjustHeadersForCheckPointTip').callsArgWith(0, null);
       var setGenesisBlock = sandbox.stub(headerService, '_setGenesisBlock').callsArgWith(0, null);
       headerService.GENESIS_HASH = '00';
@@ -159,8 +159,8 @@ describe('Header Service', function() {
   describe('#_computeChainwork', function() {
 
     it('should calculate chain work correctly', function() {
-      var expected = new BN(new Buffer('000000000000000000000000000000000000000000677c7b8122f9902c79f4e0', 'hex'));
-      var prev = new BN(new Buffer('000000000000000000000000000000000000000000677bd68118a98f8779ea90', 'hex'));
+      var expected = new BN(Buffer.from('000000000000000000000000000000000000000000677c7b8122f9902c79f4e0', 'hex'));
+      var prev = new BN(Buffer.from('000000000000000000000000000000000000000000677bd68118a98f8779ea90', 'hex'));
 
       var actual = headerService._computeChainwork(0x18018d30, prev);
       assert(actual.eq(expected), 'not equal: actual: ' + actual + ' expected: ' + expected);

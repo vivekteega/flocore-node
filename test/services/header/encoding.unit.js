@@ -6,13 +6,13 @@ var Encoding = require('../../../lib/services/header/encoding');
 
 describe('Header service encoding', function() {
 
-  var servicePrefix = new Buffer('0000', 'hex');
+  var servicePrefix = Buffer.from('0000', 'hex');
 
-  var hashPrefix = new Buffer('00', 'hex');
-  var heightPrefix = new Buffer('01', 'hex');
+  var hashPrefix = Buffer.from('00', 'hex');
+  var heightPrefix = Buffer.from('01', 'hex');
   var encoding = new Encoding(servicePrefix);
   var hash = '91b58f19b6eecba94ed0f6e463e8e334ec0bcda7880e2985c82a8f32e4d03add';
-  var hashBuf = new Buffer(hash, 'hex');
+  var hashBuf = Buffer.from(hash, 'hex');
   var header = {
     hash: hash,
     prevHash: '91b58f19b6eecba94ed0f6e463e8e334ec0bcda7880e2985c82a8f32e4d03ade',
@@ -25,15 +25,15 @@ describe('Header service encoding', function() {
     chainwork: '0000000000000000000000000000000000000000000000000000000200020002',
     nextHash: '91b58f19b6eecba94ed0f6e463e8e334ec0bcda7880e2985c82a8f32e4d03ade'
   };
-  var versionBuf = new Buffer(4);
-  var prevHashBuf = new Buffer(header.prevHash, 'hex');
-  var nextHashBuf = new Buffer(header.nextHash, 'hex');
-  var merkleRootBuf = new Buffer(header.merkleRoot, 'hex');
-  var tsBuf = new Buffer(4);
-  var bitsBuf = new Buffer(4);
-  var nonceBuf = new Buffer(4);
-  var heightBuf = new Buffer(4);
-  var chainBuf = new Buffer('0000000000000000000000000000000000000000000000000000000200020002', 'hex');
+  var versionBuf = Buffer.alloc(4);
+  var prevHashBuf = Buffer.from(header.prevHash, 'hex');
+  var nextHashBuf = Buffer.from(header.nextHash, 'hex');
+  var merkleRootBuf = Buffer.from(header.merkleRoot, 'hex');
+  var tsBuf = Buffer.alloc(4);
+  var bitsBuf = Buffer.alloc(4);
+  var nonceBuf = Buffer.alloc(4);
+  var heightBuf = Buffer.alloc(4);
+  var chainBuf = Buffer.from('0000000000000000000000000000000000000000000000000000000200020002', 'hex');
   heightBuf.writeUInt32BE(header.height);
 
   it('should encode header hash key' , function() {
@@ -54,7 +54,7 @@ describe('Header service encoding', function() {
     .should.deep.equal(header.height);
   });
   it('should encode header value', function() {
-    var prevHashBuf = new Buffer(header.prevHash, 'hex');
+    var prevHashBuf = Buffer.from(header.prevHash, 'hex');
     versionBuf.writeInt32BE(header.version); // signed
     tsBuf.writeUInt32BE(header.timestamp);
     bitsBuf.writeUInt32BE(header.bits);

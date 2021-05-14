@@ -7,7 +7,7 @@ var Encoding = require('../../../lib/services/block/encoding');
 
 describe('Block service encoding', function() {
 
-  var servicePrefix = new Buffer('0000', 'hex');
+  var servicePrefix = Buffer.from('0000', 'hex');
 
   var encoding = new Encoding(servicePrefix);
   var hash = '91b58f19b6eecba94ed0f6e463e8e334ec0bcda7880e2985c82a8f32e4d03add';
@@ -19,14 +19,14 @@ describe('Block service encoding', function() {
     it('should encode block key' , function() {
       encoding.encodeBlockKey(hash).should.deep.equal(Buffer.concat([
         servicePrefix,
-        new Buffer(hash, 'hex')
+        Buffer.from(hash, 'hex')
       ]));
     });
 
     it('should decode block key' , function() {
       var buf = Buffer.concat([
         servicePrefix,
-        new Buffer(hash, 'hex')
+        Buffer.from(hash, 'hex')
       ]);
 
       var actual = encoding.decodeBlockKey(buf);

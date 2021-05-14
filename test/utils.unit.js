@@ -39,13 +39,13 @@ describe('Utils', function() {
 
   describe('#getTerminalKey', function() {
     it('should get the terminal key for a buffer', function() {
-      utils.getTerminalKey(new Buffer('ffff', 'hex'))
-        .should.deep.equal(new Buffer('010000', 'hex'));
+      utils.getTerminalKey(Buffer.from('ffff', 'hex'))
+        .should.deep.equal(Buffer.from('010000', 'hex'));
     });
 
     it('should get the terminal key for a large buffer', function() {
-      utils.getTerminalKey(Buffer.concat([ new Buffer(new Array(64).join('f'), 'hex'), new Buffer('fe', 'hex') ]))
-        .should.deep.equal(new Buffer('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 'hex'));
+      utils.getTerminalKey(Buffer.concat([ Buffer.from(new Array(64).join('f'), 'hex'), Buffer.from('fe', 'hex') ]))
+        .should.deep.equal(Buffer.from('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', 'hex'));
     });
   });
 
@@ -91,8 +91,8 @@ describe('Utils', function() {
     it('should encode tip', function() {
       var res = utils.encodeTip({ height: 0xdeadbeef, hash: new Array(65).join('0') }, 'test');
       res.should.deep.equal({
-          key: new Buffer('ffff7469702d74657374', 'hex'),
-          value: new Buffer('deadbeef00000000000000000000000000000000000000000000000000000000000000000', 'hex')
+          key: Buffer.from('ffff7469702d74657374', 'hex'),
+          value: Buffer.from('deadbeef00000000000000000000000000000000000000000000000000000000000000000', 'hex')
         });
     });
   });

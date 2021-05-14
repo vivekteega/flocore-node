@@ -7,19 +7,19 @@ var dbPath = '/Users/chrisk/.bwdb/flocore-node.db';
 var flocore = require('flocore-lib');
 var db = levelup(dbPath, {keyEncoding: 'binary', valueEncoding: 'binary'});
 
-var prefix = new Buffer('0002', 'hex');
+var prefix = Buffer.from('0002', 'hex');
 var encoding = new Encoding(prefix);
 var address = '1MfDRRVVKXUe5KNVZzu8CBzUZDHTTYZM94';
-var addressLength = new Buffer(1);
+var addressLength = Buffer.alloc(1);
 addressLength.writeUInt8(address.length);
 
 //var startBuffer = prefix;
-//var endBuffer = Buffer.concat([prefix, new Buffer('ff', 'hex')]);
+//var endBuffer = Buffer.concat([prefix, Buffer.from('ff', 'hex')]);
 
-//var startBuffer = Buffer.concat([prefix, addressLength, new Buffer(address, 'utf8'), new Buffer('00', 'hex')]);
-//var endBuffer = Buffer.concat([prefix, addressLength, new Buffer(address, 'utf8'), new Buffer('01', 'hex')]);
-var start = Buffer.concat([prefix, new Buffer('0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9', 'hex')]);
-var end = Buffer.concat([prefix, new Buffer('0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9', 'hex'), new Buffer('01', 'hex')]);
+//var startBuffer = Buffer.concat([prefix, addressLength, Buffer.from(address, 'utf8'), Buffer.from('00', 'hex')]);
+//var endBuffer = Buffer.concat([prefix, addressLength, Buffer.from(address, 'utf8'), Buffer.from('01', 'hex')]);
+var start = Buffer.concat([prefix, Buffer.from('0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9', 'hex')]);
+var end = Buffer.concat([prefix, Buffer.from('0437cd7f8525ceed2324359c2d0ba26006d92d856a9c20fa0241106ee5a597c9', 'hex'), Buffer.from('01', 'hex')]);
 var stream = db.createReadStream({
   gte: start,
   lt: end

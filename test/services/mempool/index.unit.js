@@ -21,7 +21,7 @@ describe('Mempool Service', function() {
         services: []
       }
     });
-    mempoolService._encoding = new Encoding(new Buffer('0000', 'hex'));
+    mempoolService._encoding = new Encoding(Buffer.from('0000', 'hex'));
   });
 
   afterEach(function() {
@@ -31,7 +31,7 @@ describe('Mempool Service', function() {
   describe('#start', function() {
 
     it('should get the db prefix', function(done) {
-      var getPrefix = sandbox.stub().callsArgWith(1, null, new Buffer('0001', 'hex'));
+      var getPrefix = sandbox.stub().callsArgWith(1, null, Buffer.from('0001', 'hex'));
       mempoolService._db = { getPrefix: getPrefix };
 
       mempoolService.start(function() {

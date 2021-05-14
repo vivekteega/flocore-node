@@ -21,7 +21,7 @@ describe('Transaction Service', function() {
         services: []
       }
     });
-    txService._encoding = new Encoding(new Buffer('0000', 'hex'));
+    txService._encoding = new Encoding(Buffer.from('0000', 'hex'));
   });
 
   afterEach(function() {
@@ -30,7 +30,7 @@ describe('Transaction Service', function() {
 
   describe('#start', function() {
     it('should get the prefix and the service tip', function(done) {
-      var getPrefix = sandbox.stub().callsArgWith(1, null, new Buffer('ffee', 'hex'));
+      var getPrefix = sandbox.stub().callsArgWith(1, null, Buffer.from('ffee', 'hex'));
       txService._db = { getPrefix: getPrefix };
       txService.start(function() {
         getPrefix.calledOnce.should.be.true;

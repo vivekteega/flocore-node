@@ -12,7 +12,7 @@ var dbLocation = process.argv[2];
 
 console.log('Using db location: ', dbLocation);
 
-var addressPrefix = new Buffer('0006', 'hex');
+var addressPrefix = Buffer.from('0006', 'hex');
 
 var startAddress = new Array(35).join('0');
 var endAddress = new Array(35).join('f');

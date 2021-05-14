@@ -121,7 +121,7 @@ describe('DB', function() {
     it('should put a value in the db', function(done) {
       var put = sandbox.stub().callsArgWith(2, null);
       dbService._store = { put: put };
-      dbService.put(new Buffer('key'), new Buffer('value'), function(err) {
+      dbService.put(Buffer.from('key'), Buffer.from('value'), function(err) {
         if (err) {
           return done(err);
         }
@@ -132,7 +132,7 @@ describe('DB', function() {
 
     it('should not allow an operation while the node is shutting down', function(done) {
       dbService._stopping = true;
-      dbService.put(new Buffer('key'), new Buffer('value'), function(err) {
+      dbService.put(Buffer.from('key'), Buffer.from('value'), function(err) {
         done();
       });
     });
@@ -256,7 +256,7 @@ describe('DB', function() {
   describe('#getServiceTip', function() {
     it('should get service tip for previously saved', function(done) {
 
-      var tipBuf = Buffer.concat([ new Buffer('deadbeef', 'hex'), new Buffer(tx.txid(), 'hex') ]);
+      var tipBuf = Buffer.concat([ Buffer.from('deadbeef', 'hex'), Buffer.from(tx.txid(), 'hex') ]);
       var get = sandbox.stub(dbService, 'get').callsArgWith(1, null, tipBuf);
       dbService.getServiceTip('test', function(err, tip) {
 
@@ -293,7 +293,7 @@ describe('DB', function() {
   describe('#getPrefix', function() {
 
    it('should get the db prefix for a service when one already exists', function(done) {
-     var get = sandbox.stub(dbService, 'get').callsArgWith(1, null, new Buffer('0000', 'hex'));
+     var get = sandbox.stub(dbService, 'get').callsArgWith(1, null, Buffer.from('0000', 'hex'));
      dbService.getPrefix('test', function(err, prefix) {
 
        if(err) {
@@ -310,7 +310,7 @@ describe('DB', function() {
      var put = sandbox.stub(dbService, 'put').callsArgWith(2, null);
      var get = sandbox.stub(dbService, 'get');
      get.onCall(0).callsArgWith(1, null, null);
-     get.onCall(1).callsArgWith(1, null, new Buffer('eeee', 'hex'));
+     get.onCall(1).callsArgWith(1, null, Buffer.from('eeee', 'hex'));
      dbService.getPrefix('test', function(err, prefix) {
 
        if(err) {

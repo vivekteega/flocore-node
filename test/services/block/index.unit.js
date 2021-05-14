@@ -23,7 +23,7 @@ describe('Block Service', function() {
         services: []
       }
     });
-    blockService._encoding = new Encoding(new Buffer('0000', 'hex'));
+    blockService._encoding = new Encoding(Buffer.from('0000', 'hex'));
   });
 
   afterEach(function() {

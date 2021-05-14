@@ -24,7 +24,7 @@ describe('Address Service', function() {
         services: []
       }
     });
-    addressService._encoding = new Encoding(new Buffer('0000', 'hex'));
+    addressService._encoding = new Encoding(Buffer.from('0000', 'hex'));
   });
 
   afterEach(function() {
@@ -34,7 +34,7 @@ describe('Address Service', function() {
   describe('#start', function() {
 
     it('should get prefix for database', function(done) {
-      var getPrefix = sandbox.stub().callsArgWith(1, null, new Buffer('ffee', 'hex'));
+      var getPrefix = sandbox.stub().callsArgWith(1, null, Buffer.from('ffee', 'hex'));
       addressService._db = { getPrefix: getPrefix };
       addressService.start(function() {
         expect(getPrefix.calledOnce).to.be.true;
@@ -355,7 +355,7 @@ describe('Address Service', function() {
   describe('#getAddressUnspentOutputs', function() {
     it('should get address utxos', function(done) {
 
-      var encoding = new Encoding(new Buffer('0001', 'hex'));
+      var encoding = new Encoding(Buffer.from('0001', 'hex'));
       addressService._encoding = encoding;
 
       var address = 'a';

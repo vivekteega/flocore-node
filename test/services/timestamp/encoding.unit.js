@@ -5,21 +5,21 @@ var Encoding = require('../../../lib/services/timestamp/encoding');
 
 describe('Timestamp service encoding', function() {
 
-  var servicePrefix = new Buffer('0000', 'hex');
-  var blockPrefix = new Buffer('00', 'hex');
-  var timestampPrefix = new Buffer('01', 'hex');
+  var servicePrefix = Buffer.from('0000', 'hex');
+  var blockPrefix = Buffer.from('00', 'hex');
+  var timestampPrefix = Buffer.from('01', 'hex');
   var encoding = new Encoding(servicePrefix);
   var blockhash = '00000000000000000115b92b1ff4377441049bff75c6c48b626eb99e8b744297';
   var timestamp = 5;
-  var timestampBuf = new Buffer(4);
+  var timestampBuf = Buffer.alloc(4);
   timestampBuf.writeUInt32BE(timestamp);
 
   it('should encode block timestamp key' , function() {
-    encoding.encodeBlockTimestampKey(blockhash).should.deep.equal(Buffer.concat([servicePrefix, blockPrefix, new Buffer(blockhash, 'hex')]));
+    encoding.encodeBlockTimestampKey(blockhash).should.deep.equal(Buffer.concat([servicePrefix, blockPrefix, Buffer.from(blockhash, 'hex')]));
   });
 
   it('should decode block timestamp key', function() {
-    var blockTimestampKey = encoding.decodeBlockTimestampKey(Buffer.concat([servicePrefix, blockPrefix, new Buffer(blockhash, 'hex')]));
+    var blockTimestampKey = encoding.decodeBlockTimestampKey(Buffer.concat([servicePrefix, blockPrefix, Buffer.from(blockhash, 'hex')]));
     blockTimestampKey.should.equal(blockhash);
   });
 
@@ -40,10 +40,10 @@ describe('Timestamp service encoding', function() {
   });
 
   it('should encode timestamp block value', function() {
-    encoding.encodeTimestampBlockValue(blockhash).should.deep.equal(new Buffer(blockhash, 'hex'));
+    encoding.encodeTimestampBlockValue(blockhash).should.deep.equal(Buffer.from(blockhash, 'hex'));
   });
 
   it('should decode timestamp block value', function() {
-    encoding.decodeTimestampBlockValue(new Buffer(blockhash, 'hex')).should.equal(blockhash);
+    encoding.decodeTimestampBlockValue(Buffer.from(blockhash, 'hex')).should.equal(blockhash);
   });
 });
